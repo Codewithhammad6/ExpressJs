@@ -1,0 +1,8 @@
+{
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "github.copilot.enable": {
+        "markdown": true,
+        "scminput": true,
+        "plaintext": true
+    }
+}

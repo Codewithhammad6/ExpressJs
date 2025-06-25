@@ -1,0 +1,26 @@
+Mongoose Commands
+
+
+
+             Create
+insertOne()
+insertMany()
+create()
+
+
+              Read
+find()
+findOne()
+findById()
+
+
+              Update
+updateOne()
+updateMany()
+findByIdAndUpdate()
+
+
+               Delete
+deleteOne()
+deleteMany()
+findByIdAndDelete()

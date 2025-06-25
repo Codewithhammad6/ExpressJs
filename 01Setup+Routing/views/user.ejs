@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim perferendis, dignissimos deleniti asperiores facere repellendus quibusdam repellat id dolorem ipsam maxime, voluptate dolorum aperiam molestiae explicabo culpa magni fugit porro.</p>
+    
+<% if (message) { %>
+    <h2><%= message %></h2>
+<% } else { %>
+    <h2>No message available</h2>
+<% } %>
+
+
+
+
+<% let items = ["Apple", "Banana", "Cherry"] %>
+
+<ul>
+    <% items.forEach(item => { _%>
+        <li><%= item %></li>
+    <% }); %>
+</ul>
+
+</body>
+</html>

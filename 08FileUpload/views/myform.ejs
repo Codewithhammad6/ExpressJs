@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 28px;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+    input[type="text"],
+    input[type="file"] {
+      width: 300px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head> 
+<body>
+
+  <h1>File Upload</h1>
+
+  <form action="/submitform" method="POST" enctype="multipart/form-data">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="username" placeholder="Enter your name" >
+
+  <label for="userfile">Upload File</label>
+<input type="file" id="userfile" name="userfile" >
+
+<label for="userdocument">Document File</label>
+<input type="file" multiple id="userdocument" name="userdocument" >
+
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>

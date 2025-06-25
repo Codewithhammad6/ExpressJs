@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <center><h1>Form Validation</h1></center>
+    </div>
+    <% if(errors.length>0) {%>
+<div style="margin-bottom: 1rem;">
+<ul>
+    <% errors.forEach(error => {%>
+        <li><%= error.msg %> </li>
+   <% }); %>
+</ul>
+</div>
+        <% } %> 
+    <form action="/saveform" method="post">
+    <div style="margin-top: 3rem;">
+        <div style="margin-bottom: 1rem;">
+            <label style="margin-left: 2rem;" for="name">User Name: </label>
+            <input id="name" type="text" name="username">  
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label style="margin-left: 2rem; margin-right: 2rem;" for="email">Email: </label>
+            <input id="email" type="email" name="useremail">  
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label style="margin-left: 0.5rem; margin-right: 2rem;" for="pass">Password: </label>
+            <input id="pass" type="password" name="userpassword">  
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label style="margin-left: 2.6rem; margin-right: 2rem;" for="age">Age: </label>
+            <input id="age" type="number" name="userage">  
+        </div>
+        <div style="margin-bottom: 1rem;">
+            <label style="margin-left: 2.6rem; margin-right: 2rem;">City: </label>
+           <select name="usercity">
+           <option value="Sahiwal">Sahiwal</option>
+            <option value="Sargodha">Sargodha</option>
+            <option value="Lahore">Lahore</option>
+            <option value="Islamabad">Islamabad</option>
+           </select>  
+        </div>
+<div style="margin-left: 7rem;">
+    <button type="submit">Submit</button>
+</div>
+    </div>
+    </form>
+</body>
+</html>
+
+
+
+
