@@ -41,13 +41,13 @@
 //    limits: limits
 //    })
 
-// app.post('/submitform', upload.single('imagefile'), (req, res)=> {
+// app.post('/submitform', upload.single('userfile'), (req, res)=> {
 //    res.send(req.file)
 //    })
 
 
 // if upload more than one
-// // upload.array('imagefile', 5)
+// // upload.array('userfile', 5)
 // // upload.fields([ { name: 'profilePic', maxCount: 1 }, { name: 'documents', maxCount: 3}]) van
 
 
