@@ -1,0 +1,10 @@
+# Ignore environment variables file
+.env
+
+# Ignore admin panel login page
+admin.html
+
+# Optional: node_modules and log files
+node_modules/
+logs
+*.log
