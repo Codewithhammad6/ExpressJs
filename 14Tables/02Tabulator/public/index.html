@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabulator Tables</title>
+    <link href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" rel="stylesheet">
+   <style>
+    .container{
+      width: 1000px;
+      margin: 0 auto;
+    }
+    .tabulator-print-header, tabulator-print-footer{
+    text-align:center;
+}
+ select {
+    background-color: rgb(49, 7, 216);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    
+  }
+
+
+/*Theme the header*/
+#userTable .tabulator-header {
+  background-color: #c3bdbd;
+  color: #fff;
+}
+
+/*Allow column header names to wrap lines*/
+#userTable .tabulator-header .tabulator-col,
+#userTable .tabulator-header .tabulator-col-row-handle {
+  white-space: normal;
+  background-color: rgb(49, 60, 180);
+}
+
+/*Color the table rows*/
+#userTable .tabulator-tableholder .tabulator-table .tabulator-row {
+  color: #edeaea;
+  background-color: #6d6868;
+}
+
+/*Color even rows*/
+#userTable .tabulator-tableholder .tabulator-table .tabulator-row:nth-child(even) {
+  background-color: #444;
+}
+
+   </style>
+  </head>
+  <body>
+<div class="container">
+  <div style="margin-bottom: 20px;">
+    <select id="actionSelect">
+      <option value="">--Select option--</option>
+      <option value="print">Print Table</option>
+      <option value="csv">Download CSV</option>
+      <option value="json">Download JSON</option>
+      <option value="xlsx">Download XLSX</option>
+      <option value="pdf">Download PDF</option>
+      <option value="html">Download HTML</option>
+    </select>
+</div>
+
+
+<div>
+  <select id="filter-field">
+    <option></option>
+    <option value="name">Name</option>
+    <option value="email">Email</option>
+    <option value="age">Age</option>
+  </select>
+
+  <select id="filter-type">
+    <option value="=">=</option>
+    <option value="<"><</option>
+    <option value="<="><=</option>
+    <option value=">">></option>
+    <option value=">=">>=</option>
+    <option value="!=">!=</option>
+    <option value="like">like</option>
+  </select>
+
+  <input id="filter-value" type="text" placeholder="value to filter">
+
+</div>
+
+
+
+  <div id="userTable"></div>
+</div>
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.1/dist/js/tabulator.min.js"></script>
+  <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
+  
+  <script>
+//Build Tabulator
+
+
+
+var minMaxFilterEditor = function(cell, onRendered, success, cancel, editorParams){
+    var end;
+    var container = document.createElement("span");
+    //create and style inputs
+    var start = document.createElement("input");
+    start.setAttribute("type", "number");
+    start.setAttribute("placeholder", "Min");
+    start.setAttribute("min", 0);
+    start.setAttribute("max", 100);
+    start.style.padding = "4px";
+    start.style.width = "50%";
+    start.style.boxSizing = "border-box";
+
+    start.value = cell.getValue();
+
+    function buildValues(){
+        success({
+            start:start.value,
+            end:end.value,
+        });
+    }
+
+    function keypress(e){
+        if(e.keyCode == 13){
+            buildValues();
+        }
+
+        if(e.keyCode == 27){
+            cancel();
+        }
+    }
+
+    end = start.cloneNode();
+    end.setAttribute("placeholder", "Max");
+
+    start.addEventListener("change", buildValues);
+    start.addEventListener("blur", buildValues);
+    start.addEventListener("keydown", keypress);
+
+    end.addEventListener("change", buildValues);
+    end.addEventListener("blur", buildValues);
+    end.addEventListener("keydown", keypress);
+
+
+    container.appendChild(start);
+    container.appendChild(end);
+
+    return container;
+ }
+
+//custom max min filter function
+function minMaxFilterFunction(headerValue, rowValue, rowData, filterParams){
+        if(rowValue){
+            if(headerValue.start != ""){
+                if(headerValue.end != ""){
+                    return rowValue >= headerValue.start && rowValue <= headerValue.end;
+                }else{
+                    return rowValue >= headerValue.start;
+                }
+            }else{
+                if(headerValue.end != ""){
+                    return rowValue <= headerValue.end;
+                }
+            }
+        }
+
+    return true; //must return a boolean, true if it passes the filter.
+}
+
+
+
+
+var table = new Tabulator("#userTable", {
+    layout:"fitColumns",
+    ajaxURL:"http://localhost:4000/api/users",
+     ajaxResponse:function(url, params, response){
+        return response.data; 
+    },
+    
+     printAsHtml:true,
+    printHeader:"<h1>Users Data<h1>",
+    printFooter:"",
+    progressiveLoad:"scroll",
+    pagination:true,
+    paginationSize:5,
+    paginationSizeSelector:[10, 25, 50, 100],
+    placeholder:"No Data Set",
+    columns:[
+       {title:"Name", field:"name", width:150, headerFilter:"input"},
+        {title:"Email", field:"email",headerFilter:"input"},
+        {title:"Age", field:"age"},
+        {
+          title:"Actions",
+          formatter:function(){
+            return `
+          <button onClick="viewUser()">View</button>
+          <button onClick="updateUser()">Update</button>
+          <button onClick="deleteUser()">Delete</button>
+            
+            `
+          }
+        }
+       ],
+});
+document.getElementById("actionSelect").addEventListener("change", function () {
+    const action = this.value;
+
+    if (action === "print") {
+      table.print(false, true);
+    } else if (action === "csv") {
+      table.download("csv", "data.csv");
+    } else if (action === "json") {
+      table.download("json", "data.json");
+    } else if (action === "xlsx") {
+      table.download("xlsx", "data.xlsx", { sheetName: "My Data" });
+    } else if (action === "pdf") {
+      table.download("pdf", "data.pdf", {
+        orientation: "portrait",
+        title: "Example Report",
+      });
+    } else if (action === "html") {
+      table.download("html", "data.html", { style: true });
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+  //Define variables for input elements
+var fieldEl = document.getElementById("filter-field");
+var typeEl = document.getElementById("filter-type");
+var valueEl = document.getElementById("filter-value");
+
+//Trigger setFilter function with correct parameters
+function updateFilter(){
+  var filterVal = fieldEl.value
+  var typeVal = typeEl.options[typeEl.selectedIndex].value;
+
+  var filter = filterVal == "function" ? customFilter : filterVal;
+
+  if(filterVal == "function" ){
+    typeEl.disabled = true;
+    valueEl.disabled = true;
+  }else{
+    typeEl.disabled = false;
+    valueEl.disabled = false;
+  }
+
+  if(filterVal){
+    table.setFilter(filter,typeVal, valueEl.value);
+  }
+}
+
+//Update filters on value change
+document.getElementById("filter-field").addEventListener("change", updateFilter);
+document.getElementById("filter-type").addEventListener("change", updateFilter);
+document.getElementById("filter-value").addEventListener("keyup", updateFilter);
+
+//Clear filters on "Clear Filters" button click
+document.getElementById("filter-clear").addEventListener("keyUp", function(){
+  fieldEl.value = "";
+  typeEl.value = "=";
+  valueEl.value = "";
+
+  table.clearFilter();
+});
+
+    </script>
+  </body>
+</html>
