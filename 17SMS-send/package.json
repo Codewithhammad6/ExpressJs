@@ -1,0 +1,12 @@
+{
+ "scripts": {
+  "dev": "nodemon index.js"
+ },
+ "dependencies": {
+  "dotenv": "^17.0.1",
+  "ejs": "^3.1.10",
+  "express": "^5.1.0",
+  "nodemon": "^3.1.10",
+  "twilio": "^5.7.2"
+ }
+}
