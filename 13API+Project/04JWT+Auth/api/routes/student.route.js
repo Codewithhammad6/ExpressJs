@@ -71,7 +71,6 @@ router.get("/:id", async (req, res) => {
 });
 
 //create a new student
-
 router.post("/", upload.single("profile_pic"), async (req, res) => {
   try {
 

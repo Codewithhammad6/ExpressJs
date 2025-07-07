@@ -19,7 +19,6 @@ router.get('/', async (req, res) => {
 });
 
 
-
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -30,6 +29,20 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.post('/register',async (req,res)=>{
 try {
