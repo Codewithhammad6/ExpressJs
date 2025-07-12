@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import Layout from './Layout.jsx'
-import Home from './components/Home/Home.jsx'
+import Home from './components/Home/Home1.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddContact from './components/AddContact/AddContact.jsx'
 import ViewContact from './components/ViewContact/ViewContact.jsx'

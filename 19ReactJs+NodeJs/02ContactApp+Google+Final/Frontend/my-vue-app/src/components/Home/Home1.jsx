@@ -4,7 +4,7 @@ import axios from "axios";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import "tabulator-tables/dist/css/tabulator.min.css";
 
-function Home() {
+function Home1() {
   function checkAuth() {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -45,7 +45,7 @@ function Home() {
               const url = img
                 ? `http://localhost:5000/uploads/${img}`
                 : "https://via.placeholder.com/40?text=N/A";
-              return `<img src="${url}" class="w-10 h-10 rounded-full object-cover"/>`;
+              return `<img src="${url}" class="w-10 h-10 rounded-full object-cover border border-blue-300 shadow-sm"/>`;
             },
             hozAlign: "center",
           },
@@ -65,12 +65,12 @@ function Home() {
               const id = cell.getData()._id;
               return `
                 <a href="/viewcontact/${id}">
-                  <button class="bg-[#26a041] text-white px-2 py-[2px] text-xs rounded hover:bg-[#336c30] transition">View</button>
+                  <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 text-xs rounded shadow">View</button>
                 </a>
                 <a href="/editcontact/${id}">
-                  <button class="bg-blue-500 text-white px-2 py-[2px] text-xs rounded hover:bg-blue-600 transition">Edit</button>
+                  <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 text-xs rounded shadow">Edit</button>
                 </a>
-                <button class="bg-red-500 text-white px-2 py-[2px] text-xs rounded hover:bg-red-600 delete-btn transition" data-id="${id}">Delete</button>
+                <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 text-xs rounded shadow delete-btn" data-id="${id}">Delete</button>
               `;
             },
             hozAlign: "center",
@@ -131,46 +131,57 @@ function Home() {
 
   const handleNameSearch = (e) => {
     const value = e.target.value.toLowerCase();
-    tableRef.current?.setFilter([
-      { field: "first_name", type: "like", value },
-      { field: "last_name", type: "like", value },
-    ]);
+
+    if (value === "") {
+      tableRef.current?.clearFilter(true);
+      return;
+    }
+
+    tableRef.current?.setFilter((data) => {
+      const fullName = `${data.first_name || ""} ${data.last_name || ""}`.toLowerCase();
+      return fullName.includes(value);
+    });
   };
 
   const handleEmailSearch = (e) => {
     const value = e.target.value.toLowerCase();
+
+    if (value === "") {
+      tableRef.current?.clearFilter(true);
+      return;
+    }
+
     tableRef.current?.setFilter("email", "like", value);
   };
 
   return (
-    <div className="bg-[#dcdcdc] flex mx-auto items-center min-h-screen w-full pt-28">
-      <div className="mx-auto rounded-t-md flex-col w-[95%] max-w-[1400px]">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 px-4 py-24">
+      <div className="max-w-6xl mx-auto backdrop-blur-xl bg-white/90 border border-white/30 shadow-2xl rounded-xl p-4 sm:p-6">
         {/* Header */}
-        <div className="border-[.1rem] border-[#dbd8d8] mb-1 bg-[#435D7D] flex px-6 md:px-10 py-4 text-white justify-between rounded-t-md flex-wrap gap-2">
-          <h2 className="uppercase text-[1.6rem] font-serif">All Contacts</h2>
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#333] font-serif">All Contacts</h2>
 
-          <div className="flex items-center gap-2 relative">
+          <div className="flex items-center gap-2">
             <Link to="/addcontact">
-              <button className="bg-[#26a041] px-4 py-2 rounded text-white text-sm md:text-[1rem] shadow hover:shadow-md hover:bg-[#2f8235] transition">
+              <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-semibold shadow-md transition">
                 + Add New
               </button>
             </Link>
 
-            {/* Dropdown */}
             <div className="relative">
               <button
-                className="bg-blue-600 text-white px-4 py-2 rounded text-sm shadow hover:bg-blue-700 transition"
+                className="bg-blue-600 text-white px-4 py-2 rounded font-semibold shadow hover:bg-blue-700 transition"
                 onClick={() => setShowDropdown(!showDropdown)}
               >
                 Download ▼
               </button>
               {showDropdown && (
-                <div className="absolute z-50 right-0 mt-2 w-44 bg-gray-600 border rounded shadow-md">
+                <div className="absolute z-50 right-0 mt-2 w-44 bg-white border border-blue-200 rounded shadow-lg">
                   {["csv", "json", "xlsx", "pdf", "html"].map((format) => (
                     <button
                       key={format}
                       onClick={() => handleDownload(format)}
-                      className="w-full text-left px-4 py-2 text-sm hover:bg-gray-400 transition"
+                      className="w-full text-left px-4 py-2 text-sm text-blue-900 hover:bg-blue-100 hover:text-black transition"
                     >
                       {format.toUpperCase()}
                     </button>
@@ -181,43 +192,39 @@ function Home() {
           </div>
         </div>
 
-       {/* Fixed Responsive 3D Search Filters */}
-<div className="bg-white/70 backdrop-blur-md px-5 md:px-10 py-4 border-b border-gray-300 shadow-inner">
-  <div className="grid gap-4 sm:grid-cols-2 w-full max-w-[600px]">
-    {/* Name Search */}
-    <div className="relative">
-      <input
-        type="text"
-        placeholder="Search by name"
-        onChange={handleNameSearch}
-        className="w-full px-4 py-2 pl-10 text-sm rounded-xl border border-gray-300 bg-white/90 shadow-[inset_2px_2px_5px_#d1d9e6,inset_-3px_-3px_5px_#ffffff] focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-      />
-      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></span>
-    </div>
+        {/* Filters */}
+        <div className="grid gap-4 sm:grid-cols-2 mb-6 max-w-xl mx-auto">
+          <input
+            type="text"
+            placeholder="Search by name"
+            onChange={handleNameSearch}
+            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 bg-white shadow focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+          <input
+            type="text"
+            placeholder="Search by email"
+            onChange={handleEmailSearch}
+            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 bg-white shadow focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
 
-    {/* Email Search */}
-    <div className="relative">
-      <input
-        type="text"
-        placeholder="Search by email"
-        onChange={handleEmailSearch}
-        className="w-full px-4 py-2 pl-10 text-sm rounded-xl border border-gray-300 bg-white/90 shadow-[inset_2px_2px_5px_#d1d9e6,inset_-3px_-3px_5px_#ffffff] focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-      />
-      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"></span>
+      {/* Table or No Contact Message */}
+{contacts.length === 0 ? (
+  <div className="text-center text-lg text-gray-600 py-16 font-semibold">
+    No contacts found.
+  </div>
+) : (
+  <div className="overflow-x-auto border rounded-md shadow bg-white">
+    <div className="min-w-[600px] w-full">
+      <div id="tabulator-table" className="w-full"></div>
     </div>
   </div>
-</div>
+)}
 
 
-        {/* Table */}
-        <div className="w-full pb-5 border-[.1rem] border-[#dbd8d8] overflow-x-auto">
-          <div className="w-full min-w-[600px]">
-            <div id="tabulator-table" className="w-full"></div>
-          </div>
-        </div>
       </div>
     </div>
   );
 }
 
-export default Home;
+export default Home1;
