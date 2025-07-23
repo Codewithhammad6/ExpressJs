@@ -89,6 +89,10 @@ set({isUpdatingProfile:false})
 },
 
 
+
+
+
+
  connectSocket: () => {
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;

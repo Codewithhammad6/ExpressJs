@@ -56,8 +56,8 @@ return (
                 <img
                   src={
                     message.senderId === authUser._id
-                      ? authUser.profilePic || "/avatar.png"
-                      : selectedUser.profilePic || "/avatar.png"
+                      ? authUser.profilePic || "/picprofile.png"
+                      : selectedUser.profilePic || "/picprofile.png"
                   }
                   alt="profile pic"
                 />

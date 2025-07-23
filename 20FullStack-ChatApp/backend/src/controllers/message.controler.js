@@ -3,18 +3,23 @@ import Message from "../models/message.model.js";
 import cloudinary from "../lib/cloudinary.js"
 import { getReceiverSocketId, io } from "../lib/socket.js";
 
+
+
+
 export const getUsersForSidebar = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
 
     const users = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
-
     res.status(200).json(users);
   } catch (error) {
     console.error("Error in getUsersForSidebar:", error.message);
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+
 
 
 export const getMessages =async (req,res)=>{
@@ -35,6 +40,10 @@ export const getMessages =async (req,res)=>{
   }
 }
 
+
+
+
+
 export const sendMessages =async (req,res)=>{
   try {
     const {text,image} = req.body
@@ -53,6 +62,11 @@ export const sendMessages =async (req,res)=>{
       image:imageUrl
     })
     await newMessage.save()
+
+
+
+
+
 
     //Realtime functionality with socket.io
 const receiverSocketId = getReceiverSocketId(receiverId)

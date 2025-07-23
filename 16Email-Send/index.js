@@ -217,3 +217,44 @@ res.render('mailpage')
 app.listen(4000, (req, res) => {
   console.log(`Successfully Connected http://localhost:${4000}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import nodemailer from "nodemailer";
+
+export const sendEmail = async (email, password) => {
+  const transporter = nodemailer.createTransport({
+    service: "Gmail", // or use Mailtrap for dev
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: `"Auth App" <${process.env.EMAIL_USER}>`,
+    to: email,
+    subject: "Your Login Password",
+    html: `<p>Your password is: <strong>${password}</strong></p>`,
+  });
+};
+
+
+
+
+
+
+
+
