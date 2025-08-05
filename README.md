@@ -1,15 +1,19 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Codewithhammad6/ExpressJs/main/express-node-banner.png" alt="Express.js + Node.js" width="600">
-</p>
-
-<h1 align="center">🚀 Express.js API Starter</h1>
+# � Express.js API Starter
 
 <p align="center">
-  <img src="https://img.shields.io/github/last-commit/Codewithhammad6/ExpressJs" alt="Last Commit">
-  <img src="https://img.shields.io/github/license/Codewithhammad6/ExpressJs" alt="License">
-  <img src="https://img.shields.io/github/stars/Codewithhammad6/ExpressJs" alt="Stars">
-  <img src="https://img.shields.io/github/forks/Codewithhammad6/ExpressJs" alt="Forks">
+  <!-- Option 1: Use official Express/Node logos (no download needed) -->
+  <img src="https://expressjs.com/images/express-facebook-share.png" alt="Express.js" width="400">
+  <img src="https://nodejs.org/static/images/logo.svg" alt="Node.js" width="200">
+  
+  <!-- Option 2: Use shields.io badges as image placeholders -->
+  <!-- <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express" alt="Express">
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js"> -->
 </p>
+
+[![GitHub last commit](https://img.shields.io/github/last-commit/Codewithhammad6/ExpressJs)](https://github.com/Codewithhammad6/ExpressJs/commits/main)
+[![GitHub license](https://img.shields.io/github/license/Codewithhammad6/ExpressJs)](https://github.com/Codewithhammad6/ExpressJs/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Codewithhammad6/ExpressJs)](https://github.com/Codewithhammad6/ExpressJs/stargazers)
+
 
 A production-ready Express.js boilerplate with modern best practices.
 
