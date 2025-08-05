@@ -2,7 +2,9 @@
 
 <p align="center">
   <!-- Option 1: Use official Express/Node logos (no download needed) -->
-  <img src="https://expressjs.com/images/express-facebook-share.png" alt="Express.js" width="400">
+
+  <img src="https://expressjs.com/images/express-facebook-share.png" alt="Express.js Logo" width="400">
+
   <img src="https://nodejs.org/static/images/logo.svg" alt="Node.js" width="200">
   
   <!-- Option 2: Use shields.io badges as image placeholders -->
