@@ -1,30 +1,50 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/your-username/express-js-projects/main/banner-expressjs.png" alt="Express.js Mega Projects" width="100%">
+  <img src="https://raw.githubusercontent.com/Codewithhammad6/ExpressJs/main/express-node-banner.png" alt="Express.js + Node.js" width="600">
 </p>
 
-# 🚀 Express.js Mega Projects & API Collection
+<h1 align="center">🚀 Express.js API Starter</h1>
 
-![Node.js](https://img.shields.io/badge/Node.js-18-green?logo=node.js&logoColor=white)
-![Express.js](https://img.shields.io/badge/Express.js-Backend-black?logo=express&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?logo=javascript&logoColor=white)
-![Projects](https://img.shields.io/badge/API%20Projects-5%2B-brightgreen)
-![GitHub last commit](https://img.shields.io/github/last-commit/your-username/express-js-projects)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Contributions](https://img.shields.io/badge/Contributions-Welcome-orange)
-![Status](https://img.shields.io/badge/Status-Active-success)
+<p align="center">
+  <img src="https://img.shields.io/github/last-commit/Codewithhammad6/ExpressJs" alt="Last Commit">
+  <img src="https://img.shields.io/github/license/Codewithhammad6/ExpressJs" alt="License">
+  <img src="https://img.shields.io/github/stars/Codewithhammad6/ExpressJs" alt="Stars">
+  <img src="https://img.shields.io/github/forks/Codewithhammad6/ExpressJs" alt="Forks">
+</p>
 
-> A **professional collection of powerful backend projects** and **REST APIs** built with **Express.js** and **Node.js** — covering authentication, CRUD operations, database integration, and more.
+A production-ready Express.js boilerplate with modern best practices.
 
----
+## ✨ Features
 
-## ✨ Why This Repository is Awesome
-This repo is perfect for:
-- 🛠 **Backend Learning** – Master Express.js from scratch
-- 🚀 **Real-World APIs** – Authentication, CRUD, and more
-- 📦 **Database Integration** – MongoDB / MySQL examples
-- 🔐 **Security Best Practices** – JWT, bcrypt, CORS
-- 📡 **API Testing** – Postman collections included
+- RESTful API design
+- JWT authentication
+- MongoDB integration with Mongoose
+- Error handling middleware
+- Request validation
+- API documentation with Swagger
+- Docker support
+- Unit and integration testing
+- CI/CD pipeline
+- Environment variables management
 
----
+## 🚀 Quick Start
 
-## 📂 Folder Structure
+### Prerequisites
+
+- Node.js 16+
+- MongoDB 4.4+
+- npm 8+
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Codewithhammad6/ExpressJs.git
+
+# Navigate to project directory
+cd ExpressJs
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
