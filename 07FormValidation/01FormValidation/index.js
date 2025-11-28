@@ -6,7 +6,7 @@
 // body('username').notEmpty().withMessage('Username is required'),
 // body('password'). isLength({ min: 5, max: 10 }).
 // withMessage('Password must be between 5 and 10 characters long')
-// ]
+// ] 
 
 // app.post('/saveform', validationRegistration, (req, res) =>
 // {
@@ -128,6 +128,7 @@ app.post('/saveform',validationRegistration,(req,res)=>{
 app.listen('4000',()=>{
     console.log(`Successfully Connected http://localhost:${4000}`)
 })
+
 
 
 
